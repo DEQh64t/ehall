@@ -62,16 +62,17 @@ class Yjsyss(Client):
         except FileNotFoundError:
             return None
 
-        assert datetime.strptime(post['txrq'], '%Y-%m-%d %H:%M:%S')
+        assert ['title', 'txrq'] <= list(post.keys())
+        assert datetime.strptime(str(post['txrq']), '%Y-%m-%d %H:%M:%S')
 
         data = {
             "id": "0",
-            "title": post['title'],
-            "content": post.content,
-            "txrq": post['txrq'],
+            "title": post['title'],                     # 标题
+            "content": markdown.markdown(post.content), # 内容
+            "txrq": post['txrq'],                       # 填写日期
             "tjbj": "0",
         }
-        response = self.session.post(self.base_url % 'student/pygl/xsrz_save', data={"json": json.dumps(data)})
+        response = self.session.post(self.base_url % 'student/pygl/xsrz_save', data={"json": json.dumps(data, default=str)})
         return response
 
     def get_lectures(self):
