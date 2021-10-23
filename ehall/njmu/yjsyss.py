@@ -11,8 +11,8 @@ from rich.table import Table
 
 
 class Yjsyss(Client):
-    def __init__(self, app_id=None, base_url=None, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, username=None, password=None, *, login_url=None, app_id=None, base_url=None):
+        super().__init__(username, password)
         self.app_id = settings.INSTALLED_APPS[self.__class__.__name__] if app_id is None else app_id
         self.base_url = self.get_base_url() if base_url is None else base_url
 
@@ -24,7 +24,7 @@ class Yjsyss(Client):
     def get_records(self):
         response = self.session.get(self.base_url % 'student/pygl/xskyzr_list')
         return json.loads(response.text)['rows']
-    
+
     def print_records(self):
         rows = self.get_records()
 

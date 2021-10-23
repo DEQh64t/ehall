@@ -5,7 +5,7 @@ from lxml import etree
 
 
 class Client:
-    def __init__(self, username=None, password=None, login_url=None):
+    def __init__(self, username=None, password=None, *, login_url=None):
         self.username = settings.USERNAME if username is None else username
         self.password = settings.PASSWORD if password is None else password
         self.login_url = settings.LOGIN_URL if login_url is None else login_url
