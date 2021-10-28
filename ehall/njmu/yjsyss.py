@@ -2,17 +2,22 @@ import json
 import re
 from datetime import datetime
 
+import ddddocr
 import frontmatter
 import markdown
+import onnxruntime
 from ehall.conf import settings
 from ehall.njmu import Client
 from rich import print
 from rich.table import Table
 
+onnxruntime.set_default_logger_severity(3)
+
 
 class Yjsyss(Client):
-    def __init__(self, username=None, password=None, *, login_url=None, app_id=None, base_url=None):
+    def __init__(self, username=None, password=None, *, login_url=None, ocr=None, app_id=None, base_url=None):
         super().__init__(username, password)
+        self.ocr = ddddocr.DdddOcr() if ocr is None else ocr
         self.app_id = settings.INSTALLED_APPS[self.__class__.__name__] if app_id is None else app_id
         self.base_url = self.get_base_url() if base_url is None else base_url
 
@@ -86,10 +91,8 @@ class Yjsyss(Client):
         return candidates
 
     def register_lecture_by_id(self, id):
-        import ddddocr
-        ocr = ddddocr.DdddOcr()
         response = self.session.get(self.base_url % 'student/pygl/VerificationCode')
-        code = ocr.classification(response.content)
+        code = self.ocr.classification(response.content)
 
         data = {
             "id": id,
