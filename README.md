@@ -1,18 +1,24 @@
 # ehall
 
-Ehall is a tiny command-line utility to access [http://ehall.njmu.edu.cn](http://ehall.njmu.edu.cn) in case there is no other handy way to do it.
+Ehall is a tiny command-line utility to access [Ehall·of·NanJing·Medical·University](http://ehall.njmu.edu.cn) in case there is no other handy way to do it.
 
 Interested? [Install it](#installation) now and [get started by examples](#getting-started).
 
 ## Installation
 
+### Prerequisites
+
+- **Python**
+
+- **Pandoc**
+
 ### Git clone
 
 ```bash
-git clone https://github.com/DEQh64t/ehall.git && cd ehall
+git clone https://github.com/DEQh64t/ehall.git
 ```
 
-Then run `python3 -m pip install -r requirements.txt` to get things ready.
+Then run `pip install -r requirements.txt` to get things ready.
 
 ## Getting Started
 

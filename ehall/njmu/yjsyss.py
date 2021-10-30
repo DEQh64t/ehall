@@ -4,6 +4,7 @@ from datetime import datetime
 
 import ddddocr
 import frontmatter
+import pypandoc
 import markdown
 import onnxruntime
 from ehall.conf import settings
@@ -72,9 +73,9 @@ class Yjsyss(Client):
 
         data = {
             "id": "0",
-            "title": post['title'],                     # 标题
-            "content": markdown.markdown(post.content), # 内容
-            "txrq": post['txrq'],                       # 填写日期
+            "title": post['title'],
+            "content": pypandoc.convert_text(post.content, to='html', format='md'),
+            "txrq": post['txrq'],
             "tjbj": "0",
         }
         response = self.session.post(self.base_url % 'student/pygl/xsrz_save', data={"json": json.dumps(data, default=str)})
